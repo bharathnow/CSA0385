@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node*next;
+};
+void insert(struct node**head_ref,int new_data)
+{
+    struct node* n = (struct node*)malloc(sizeof(struct node));
+    n-> data=new_data;
+    n-> next=(*head_ref);
+    (*head_ref)=n;
+}
+void list(struct node*node){
+    while(node!=NULL){
+        printf("%d->",node->data);
+        node=node->next;
+    }
+    printf("NULL\n");
+}
+int main()
+{
+    struct node*head=NULL;
+    insert(&head ,4);
+    insert(&head ,3);
+    insert(&head ,2);
+    insert(&head ,1);
+    printf("linked state is ");
+    list(head);
+    return 0;
+}
