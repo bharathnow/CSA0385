@@ -1,0 +1,35 @@
+#include <stdio.h>
+int parent[100];
+int find(int i) {
+    while (i != parent[i])
+        i = parent[i];
+    return i;
+}
+void unionSets(int u, int v) {
+    parent[find(u)] = find(v);
+}
+void kruskal(int n, int edges[][3], int E) {
+    for (int i = 0; i < n; i++)
+        parent[i] = i;
+
+    int total = 0;
+    for (int i = 0; i < E; i++) {
+        int u = edges[i][0];
+        int v = edges[i][1];
+        int w = edges[i][2];
+        if (find(u) != find(v)) {
+            total += w;
+            unionSets(u, v);
+            printf("Edge %d-%d included, weight: %d\n", u, v, w);
+        }
+    }
+    printf("Total weight of MST: %d\n", total);
+}
+int main() {
+    int n = 4, E = 5;
+    int edges[][3] = {
+        {2, 3, 4}, {0, 3, 5}, {0, 2, 6}, {0, 1, 10}, {1, 3, 15}
+    };
+    kruskal(n, edges, E);
+    return 0;
+}
