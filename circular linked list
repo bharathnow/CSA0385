@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;
+    struct node* next;
+};
+void insert(struct node** head_ref, int new_data) {
+    struct node* n = (struct node*)malloc(sizeof(struct node));
+    n->data = new_data;
+    n->next = *head_ref;
+    *head_ref = n;
+}
+void convert_to_circular(struct node* head) {
+    if (head == NULL) return; 
+    struct node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = head;
+}
+void print_list(struct node* head) {
+    if (head == NULL) return;
+    struct node* temp = head;
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+    printf("\n");
+}
+int main() {
+    struct node* head = NULL;
+    insert(&head, 41);
+    insert(&head, 32);
+    insert(&head, 23);
+    insert(&head, 11);
+    convert_to_circular(head);
+    printf("Circular linked list state is:\n");
+    print_list(head);
+
+    return 0;
+}
