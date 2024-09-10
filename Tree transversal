@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+  int item;
+  struct node*left;
+  struct node*right;
+};
+void iot(struct node*root)
+{
+  if(root==NULL)return;
+  iot(root->left);
+  printf("%d->",root->item);
+  iot(root->right); 
+}
+void pre(struct node*root)
+{
+  if(root==NULL)return;  
+  printf("%d->",root->item);
+  pre(root->left);
+  pre(root->right);
+}
+void post(struct node*root)
+{
+  if(root==NULL)return;
+  post(root->left);
+  post(root->right);
+  printf("%d->",root->item);
+}
+struct node*createnode(int value)
+{
+  struct node*newnode=malloc(sizeof(struct node));
+  newnode->item=value;
+  newnode->left=NULL;
+  newnode->right=NULL;
+  return newnode;
+  }
+struct node*insertright(struct node*root,int value)
+{
+  root->right=createnode(value);
+  return root->right;
+}
+struct node*insertleft(struct node*root,int value)
+{
+  root->left=createnode(value);
+    return root->left;
+}
+int main()
+{
+ struct node*root=createnode(3);
+  insertleft(root,9);
+  insertright(root,20);
+  insertleft(root->right,15);
+  insertright(root->right,7);
+  printf("inorder transversal : \n");
+  iot(root);
+  printf("\npreorder transversal : \n");
+  pre(root);
+  printf("\npostorder transversal : \n");
+  post(root);
+}
